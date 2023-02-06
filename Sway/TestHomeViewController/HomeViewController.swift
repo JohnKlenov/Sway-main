@@ -10,6 +10,15 @@ import UIKit
 final class HomeViewController: UIViewController {
     
     var section: [MSectionImage]!
+    var segmentedControl: UISegmentedControl = {
+        let item = ["Woman","Man"]
+        let segmentControl = UISegmentedControl(items: item)
+        segmentControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentControl.selectedSegmentIndex = 0
+        segmentControl.addTarget(self, action: #selector(didTapSegmentedControl(_:)), for: .valueChanged)
+        return segmentControl
+    }()
+    
     var collectionViewLayout:UICollectionView!
     var dataSource: UICollectionViewDiffableDataSource<MSectionImage, MImage>?
 
@@ -17,13 +26,24 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         self.title = "HomeVC"
         self.view.backgroundColor = .systemBackground
+        view.addSubview(segmentedControl)
         section = MSectionImage.getData()
         setupCollectionView()
-        setupCollectionViewConstraints()
+        setupConstraints()
         createDataSource()
         reloadData()
     }
-    
+    @objc func didTapSegmentedControl(_ segmentedControl: UISegmentedControl) {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            print("Tap segment Woman")
+        case 1:
+            print("Tap segment Man")
+        default:
+            print("break")
+            break
+        }
+    }
     private func setupCollectionView() {
         
         collectionViewLayout = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
@@ -41,9 +61,10 @@ final class HomeViewController: UIViewController {
         
     }
     
-    private func setupCollectionViewConstraints() {
-        NSLayoutConstraint.activate([collectionViewLayout.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor), collectionViewLayout.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor), collectionViewLayout.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor), collectionViewLayout.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor)])
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor), segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor), segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor), collectionViewLayout.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor), collectionViewLayout.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor), collectionViewLayout.trailingAnchor.constraint(equalTo: view.trailingAnchor), collectionViewLayout.leadingAnchor.constraint(equalTo: view.leadingAnchor)])
     }
+    
     private func createDataSource() {
 
         dataSource = UICollectionViewDiffableDataSource<MSectionImage, MImage>(collectionView: collectionViewLayout, cellProvider: { collectionView, indexPath, cellData in
@@ -52,12 +73,11 @@ final class HomeViewController: UIViewController {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MallsViewCell.reuseID, for: indexPath) as? MallsViewCell
                 
                 cell?.configureCell(model: cellData, currentFrame: cell?.frame.size ?? CGSize())
-//                cell?.configureCell(imageName: cellData.image)
                 
                 return cell
             case "Category":
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.reuseID, for: indexPath) as? ImageCell
-                cell?.configureCell(imageName: cellData.image)
+                cell?.configureCell(model: cellData)
                 return cell
             case "Product":
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.reuseID, for: indexPath) as? ProductCell
@@ -66,7 +86,7 @@ final class HomeViewController: UIViewController {
             default:
                 print("default createDataSource")
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCell.reuseID, for: indexPath) as? ImageCell
-                cell?.configureCell(imageName: cellData.image)
+                cell?.configureCell(model: cellData)
                 return cell
             }
         })

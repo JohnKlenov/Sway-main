@@ -11,25 +11,47 @@ class ImageCell: UICollectionViewCell {
     
     static var reuseID: String = "ImageCell"
     
-    let imageView = UIImageView()
+    let imageView: UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFill
+        image.layer.cornerRadius = 4
+        image.clipsToBounds = true
+        return image
+    }()
+    
+    let labelName: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.textColor = .black
+        label.backgroundColor = .clear
+        return label
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 4
-        imageView.clipsToBounds = true
+        addSubview(labelName)
         addSubview(imageView)
         setupConstraints()
     }
     
     
     func setupConstraints() {
-        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: topAnchor), imageView.trailingAnchor.constraint(equalTo: trailingAnchor), imageView.leadingAnchor.constraint(equalTo: leadingAnchor), imageView.bottomAnchor.constraint(equalTo: bottomAnchor)])
+        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: topAnchor),
+                                     imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+                                     imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+                                     imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1),
+                                     labelName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0),
+                                     labelName.trailingAnchor.constraint(equalTo: trailingAnchor),
+                                     labelName.leadingAnchor.constraint(equalTo: leadingAnchor),
+                                     labelName.bottomAnchor.constraint(equalTo: bottomAnchor)])
     }
     
-    func configureCell(imageName: String) {
-        imageView.image = UIImage(named: imageName)
-        imageView.contentMode = .scaleAspectFill
+    func configureCell(model: MImage) {
+        imageView.image = UIImage(named: model.image)
+        labelName.text = model.brand
     }
     
     required init?(coder: NSCoder) {

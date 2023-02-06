@@ -32,25 +32,22 @@ class MallsViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         addSubview(imageView)
-//        imageView.addSubview(nameMall)
+        addSubview(nameMall)
         setupConstraints()
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        print("prepareForReuse prepareForReuse prepareForReuse")
         if let layers = imageView.layer.sublayers {
             for layerGradient in layers {
                 layerGradient.removeFromSuperlayer()
-                print("layerGradient layerGradient layerGradient")
             }
         }
     }
     
     func configureCell(model:MImage, currentFrame: CGSize) {
-//        nameMall.text = model.brand
+        nameMall.text = "Nike"
         imageView.image = UIImage(named: model.image)
         addGradientOverlay(correntFrame: currentFrame)
     }
@@ -61,8 +58,8 @@ class MallsViewCell: UICollectionViewCell {
                                      imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
                                      imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
                                     
-//                                     nameMall.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 20),
-//                                     nameMall.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 20)
+                                     nameMall.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+                                     nameMall.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20)
                                     ])
     }
     
