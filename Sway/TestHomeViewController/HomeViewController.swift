@@ -9,8 +9,8 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    var section: [MSectionImage]!
-    var segmentedControl: UISegmentedControl = {
+    private var section: [MSectionImage]!
+    private var segmentedControl: UISegmentedControl = {
         let item = ["Woman","Man"]
         let segmentControl = UISegmentedControl(items: item)
         segmentControl.translatesAutoresizingMaskIntoConstraints = false
@@ -19,13 +19,49 @@ final class HomeViewController: UIViewController {
         return segmentControl
     }()
     
-    var collectionViewLayout:UICollectionView!
-    var dataSource: UICollectionViewDiffableDataSource<MSectionImage, MImage>?
+    private var loader: UIActivityIndicatorView = {
+        let loader = UIActivityIndicatorView()
+        loader.color = .black
+        loader.isHidden = true
+        loader.hidesWhenStopped = true
+        loader.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        return loader
+    }()
+    
+    private var activityContainerView: UIView = {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        view.backgroundColor = UIColor(red: 170/255, green: 170/255, blue: 170/255, alpha: 1)
+        view.layer.cornerRadius = 8
+        return view
+    }()
+    
+    private var modelHomeViewController = [String:Any]() {
+        didSet {
+            if modelHomeViewController.count == 3 {
+                collectionViewLayout.reloadData()
+                loader.stopAnimating()
+                activityContainerView.removeFromSuperview()
+//              tabBarController?.view.isUserInteractionEnabled = true
+            }
+        }
+    }
+    var placesMap:[Any] = []
+    var placesFB:[Any] = [] {
+        didSet {
+//            getPlacesMap()
+        }
+    }
+    var cardProducts:[Any] = []
+    private var collectionViewLayout:UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<MSectionImage, MImage>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "HomeVC"
-        self.view.backgroundColor = .systemBackground
+        title = "HomeVC"
+        view.backgroundColor = .systemBackground
+//      tabBarController?.view.isUserInteractionEnabled = false
+//        configureActivityIndicatorView()
         view.addSubview(segmentedControl)
         section = MSectionImage.getData()
         setupCollectionView()
@@ -44,6 +80,16 @@ final class HomeViewController: UIViewController {
             break
         }
     }
+    
+    private func configureActivityIndicatorView() {
+        activityContainerView.addSubview(loader)
+        loader.center = activityContainerView.center
+        view.addSubview(activityContainerView)
+        loader.isHidden = false
+        activityContainerView.center = view.center
+        loader.startAnimating()
+    }
+    
     private func setupCollectionView() {
         
         collectionViewLayout = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
@@ -183,13 +229,16 @@ final class HomeViewController: UIViewController {
         
         return section
     }
-//        .fractionalWidth(2/3)
+   
     private func productSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
+       
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(20))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension:  .fractionalWidth(2/3)), subitem: item, count: 2)
-        group.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 0, bottom: 5, trailing: 0)
+        item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: NSCollectionLayoutSpacing.fixed(10), trailing: nil, bottom: nil)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(20))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        group.interItemSpacing = .fixed(10)
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 15, bottom: 10, trailing: 15)
@@ -226,3 +275,7 @@ struct ListProvider: PreviewProvider {
         }
     }
 }
+
+
+//        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
+//        let group = NSCollectionLayoutGroup.horizontal(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension:  .fractionalWidth(2/3)), subitem: item, count: 2)

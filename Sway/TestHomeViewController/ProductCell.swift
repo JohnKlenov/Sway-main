@@ -76,8 +76,8 @@ class ProductCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureStackView()
-        addSubview(imageView)
-        addSubview(stackView)
+        contentView.addSubview(imageView)
+        contentView.addSubview(stackView)
         setupConstraints()
 //        backgroundColor = .lightGray
     }
@@ -91,24 +91,37 @@ class ProductCell: UICollectionViewCell {
     
     private func setupConstraints() {
         
-        NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1),
-            
-            stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-//            stackView.heightAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/2),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
-
-        ])
-
-
-
+        let topImageViewCnstr = imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
+        topImageViewCnstr.priority = UILayoutPriority(999)
+        topImageViewCnstr.isActive = true
         
-//        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: topAnchor), imageView.bottomAnchor.constraint(equalTo: bottomAnchor), imageView.trailingAnchor.constraint(equalTo: trailingAnchor), imageView.leadingAnchor.constraint(equalTo: leadingAnchor)])
+        let trailingImageViewCnstr = imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0)
+//        trailingImageViewCnstr.priority = UILayoutPriority(1000)
+        trailingImageViewCnstr.isActive = true
+        
+        let leadingImageViewCnstr = imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0)
+//        leadingImageViewCnstr.priority = UILayoutPriority(1000)
+        leadingImageViewCnstr.isActive = true
+        
+        let heightImageViewCnstr = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
+//        heightImageViewCnstr.priority = UILayoutPriority(1000)
+        heightImageViewCnstr.isActive = true
+        
+        let topStackCnstr = stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0)
+//        topStackCnstr.priority = UILayoutPriority(1000)
+        topStackCnstr.isActive = true
+        
+        let trailingStackCnstr = stackView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor)
+//        trailingStackCnstr.priority = UILayoutPriority(1000)
+        trailingStackCnstr.isActive = true
+        
+        let leadingStackCnstr = stackView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor)
+//        leadingStackCnstr.priority = UILayoutPriority(1000)
+        leadingStackCnstr.isActive = true
+        
+        let bottomStackCnstr = stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
+        bottomStackCnstr.priority = UILayoutPriority(999)
+        bottomStackCnstr.isActive = true
     }
     
     func configureCell(model: MImage) {
@@ -122,3 +135,18 @@ class ProductCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+//        NSLayoutConstraint.activate([
+//            imageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
+//            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+//            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+//            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1),
+//
+//            stackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0),
+//            stackView.trailingAnchor.constraint(equalTo: imageView.trailingAnchor),
+//            stackView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor),
+////            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
+////            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0),
+////            stackView.heightAnchor.constraint(equalTo: stackView.widthAnchor, multiplier: 1/2),
+////            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0)
+//        ])
