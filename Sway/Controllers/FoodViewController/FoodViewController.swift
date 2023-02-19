@@ -129,9 +129,9 @@ extension FoodViewController {
 extension FoodViewController: FilterActionDelegate {
     func didTabFilterBTN() {
         print("Open Filter")
-        let homeVC = HomeViewController()
+        let mallVC = MallViewController()
 //        homeVC.modalPresentationStyle = .fullScreen
-        let navHomeVC = UINavigationController(rootViewController: homeVC)
+        let navHomeVC = UINavigationController(rootViewController: mallVC)
         navHomeVC.modalPresentationStyle = .fullScreen
         present(navHomeVC, animated: true, completion: nil)
         

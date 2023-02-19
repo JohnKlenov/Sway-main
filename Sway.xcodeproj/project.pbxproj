@@ -11,12 +11,18 @@
 		5E8F7366298AF8B800542AE4 /* HeaderCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8F7365298AF8B800542AE4 /* HeaderCategoryView.swift */; };
 		5E8F7368298AFCA100542AE4 /* HeaderMallsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E8F7367298AFCA100542AE4 /* HeaderMallsView.swift */; };
 		5E958EF0298FE3B000C33073 /* MallsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E958EEF298FE3B000C33073 /* MallsViewCell.swift */; };
+		5EA65C6929A22C3500EA6FA2 /* PagingSectionFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA65C6829A22C3500EA6FA2 /* PagingSectionFooterView.swift */; };
+		5EA65C6B29A22DAA00EA6FA2 /* HeaderBrandsMallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA65C6A29A22DAA00EA6FA2 /* HeaderBrandsMallView.swift */; };
+		5EA65C6D29A22EE200EA6FA2 /* MallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA65C6C29A22EE200EA6FA2 /* MallCell.swift */; };
+		5EA65C6F29A2308400EA6FA2 /* BrandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EA65C6E29A2308400EA6FA2 /* BrandCell.swift */; };
 		5EB1FA1029879A6C00CA6A63 /* MImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1FA0F29879A6C00CA6A63 /* MImage.swift */; };
 		5EB1FA1229879B3700CA6A63 /* MSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1FA1129879B3700CA6A63 /* MSection.swift */; };
 		5EB1FA1429883AEE00CA6A63 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1FA1329883AEE00CA6A63 /* HomeViewController.swift */; };
 		5EB1FA1629884A9900CA6A63 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1FA1529884A9900CA6A63 /* ImageCell.swift */; };
 		5EB1FA18298A3BC000CA6A63 /* BackgroundViewCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1FA17298A3BBF00CA6A63 /* BackgroundViewCollectionReusableView.swift */; };
 		5EB1FA1A298A7A4000CA6A63 /* HeaderProductView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB1FA19298A7A4000CA6A63 /* HeaderProductView.swift */; };
+		5EF5014F29A226C8006C462C /* MallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5014E29A226C7006C462C /* MallViewController.swift */; };
+		5EF5015129A22880006C462C /* MallSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EF5015029A22880006C462C /* MallSection.swift */; };
 		852B258828755E2D003E1384 /* VeganRestaurantModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852B258728755E2D003E1384 /* VeganRestaurantModel.swift */; };
 		852B258A28755E8F003E1384 /* VeganSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852B258928755E8F003E1384 /* VeganSectionHeaderView.swift */; };
 		852B258C2875603A003E1384 /* RestaurantVeganCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852B258B2875603A003E1384 /* RestaurantVeganCollectionViewCell.swift */; };
@@ -46,12 +52,18 @@
 		5E8F7365298AF8B800542AE4 /* HeaderCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCategoryView.swift; sourceTree = "<group>"; };
 		5E8F7367298AFCA100542AE4 /* HeaderMallsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderMallsView.swift; sourceTree = "<group>"; };
 		5E958EEF298FE3B000C33073 /* MallsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallsViewCell.swift; sourceTree = "<group>"; };
+		5EA65C6829A22C3500EA6FA2 /* PagingSectionFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingSectionFooterView.swift; sourceTree = "<group>"; };
+		5EA65C6A29A22DAA00EA6FA2 /* HeaderBrandsMallView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBrandsMallView.swift; sourceTree = "<group>"; };
+		5EA65C6C29A22EE200EA6FA2 /* MallCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallCell.swift; sourceTree = "<group>"; };
+		5EA65C6E29A2308400EA6FA2 /* BrandCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandCell.swift; sourceTree = "<group>"; };
 		5EB1FA0F29879A6C00CA6A63 /* MImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MImage.swift; sourceTree = "<group>"; };
 		5EB1FA1129879B3700CA6A63 /* MSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSection.swift; sourceTree = "<group>"; };
 		5EB1FA1329883AEE00CA6A63 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		5EB1FA1529884A9900CA6A63 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		5EB1FA17298A3BBF00CA6A63 /* BackgroundViewCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundViewCollectionReusableView.swift; sourceTree = "<group>"; };
 		5EB1FA19298A7A4000CA6A63 /* HeaderProductView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderProductView.swift; sourceTree = "<group>"; };
+		5EF5014E29A226C7006C462C /* MallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallViewController.swift; sourceTree = "<group>"; };
+		5EF5015029A22880006C462C /* MallSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MallSection.swift; sourceTree = "<group>"; };
 		852B258728755E2D003E1384 /* VeganRestaurantModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganRestaurantModel.swift; sourceTree = "<group>"; };
 		852B258928755E8F003E1384 /* VeganSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeganSectionHeaderView.swift; sourceTree = "<group>"; };
 		852B258B2875603A003E1384 /* RestaurantVeganCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantVeganCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -106,6 +118,19 @@
 			path = TestHomeViewController;
 			sourceTree = "<group>";
 		};
+		5EF5014D29A22619006C462C /* TestMallViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5EF5014E29A226C7006C462C /* MallViewController.swift */,
+				5EF5015029A22880006C462C /* MallSection.swift */,
+				5EA65C6829A22C3500EA6FA2 /* PagingSectionFooterView.swift */,
+				5EA65C6A29A22DAA00EA6FA2 /* HeaderBrandsMallView.swift */,
+				5EA65C6C29A22EE200EA6FA2 /* MallCell.swift */,
+				5EA65C6E29A2308400EA6FA2 /* BrandCell.swift */,
+			);
+			path = TestMallViewController;
+			sourceTree = "<group>";
+		};
 		85E435AB2857B88900052D42 = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +150,7 @@
 		85E435B62857B88900052D42 /* Sway */ = {
 			isa = PBXGroup;
 			children = (
+				5EF5014D29A22619006C462C /* TestMallViewController */,
 				5EB1FA0E29879A4E00CA6A63 /* TestHomeViewController */,
 				85E435D12857C1E000052D42 /* Extentions */,
 				85E435CD2857B8AD00052D42 /* Model */,
@@ -280,18 +306,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5EF5015129A22880006C462C /* MallSection.swift in Sources */,
 				85E435DB2857D05000052D42 /* FoodTopBannerCollectionViewCell.swift in Sources */,
 				85E435BC2857B88900052D42 /* FoodViewController.swift in Sources */,
 				5EB1FA18298A3BC000CA6A63 /* BackgroundViewCollectionReusableView.swift in Sources */,
 				5E958EF0298FE3B000C33073 /* MallsViewCell.swift in Sources */,
+				5EA65C6F29A2308400EA6FA2 /* BrandCell.swift in Sources */,
 				85E435E12858350700052D42 /* RestaurantListModel.swift in Sources */,
 				858E14A9285AF54A00E1C1E1 /* FilterHeaderView.swift in Sources */,
 				5E3FA2CF298E4EA200E60310 /* ProductCell.swift in Sources */,
+				5EA65C6B29A22DAA00EA6FA2 /* HeaderBrandsMallView.swift in Sources */,
 				85E435B82857B88900052D42 /* AppDelegate.swift in Sources */,
 				85E435D52857C52300052D42 /* UIButton + Extention.swift in Sources */,
 				85E435D32857C1FE00052D42 /* UIView + Extention.swift in Sources */,
 				5EB1FA1429883AEE00CA6A63 /* HomeViewController.swift in Sources */,
 				852B258828755E2D003E1384 /* VeganRestaurantModel.swift in Sources */,
+				5EA65C6929A22C3500EA6FA2 /* PagingSectionFooterView.swift in Sources */,
 				85E435DD2858288100052D42 /* FoodCategoryModel.swift in Sources */,
 				852B258C2875603A003E1384 /* RestaurantVeganCollectionViewCell.swift in Sources */,
 				85E435BA2857B88900052D42 /* SceneDelegate.swift in Sources */,
@@ -300,6 +330,7 @@
 				85E435D92857CFC100052D42 /* FoodTopBannerModel.swift in Sources */,
 				85E435E32858377800052D42 /* RestaurantListCollectionViewCell.swift in Sources */,
 				5EB1FA1229879B3700CA6A63 /* MSection.swift in Sources */,
+				5EF5014F29A226C8006C462C /* MallViewController.swift in Sources */,
 				5EB1FA1A298A7A4000CA6A63 /* HeaderProductView.swift in Sources */,
 				5E8F7366298AF8B800542AE4 /* HeaderCategoryView.swift in Sources */,
 				5EB1FA1029879A6C00CA6A63 /* MImage.swift in Sources */,
@@ -309,6 +340,7 @@
 				5E8F7368298AFCA100542AE4 /* HeaderMallsView.swift in Sources */,
 				85E435D02857BD7F00052D42 /* FoodVC+Extention.swift in Sources */,
 				85F053E4285B0A6200A4D5BC /* SectionDecorationView.swift in Sources */,
+				5EA65C6D29A22EE200EA6FA2 /* MallCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
