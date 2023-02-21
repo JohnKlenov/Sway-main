@@ -9,6 +9,30 @@ import UIKit
 
 class MallViewController: UIViewController {
 
+    var heightCnstrCollectionView: NSLayoutConstraint!
+    
+    private let scrollView: UIScrollView = {
+        let scroll = UIScrollView()
+        scroll.translatesAutoresizingMaskIntoConstraints = false
+        return scroll
+    }()
+    
+    private let stackViewContainerView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let testView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .orange
+        view.heightAnchor.constraint(equalToConstant: 900).isActive = true
+        return view
+    }()
+ 
     private var section: [MallSection]!
     private var collectionViewLayout:UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<MallSection, MImage>!
@@ -18,26 +42,60 @@ class MallViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         section = MallSection.getData()
+        setupScrollView()
         setupCollectionView()
-        setupConstraints()
+        setupSubviews()
         createDataSource()
         reloadData()
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        heightCnstrCollectionView.constant = collectionViewLayout.collectionViewLayout.collectionViewContentSize.height
+        heightCnstrCollectionView.isActive = true
+        print("collectionViewContentSize -  \(collectionViewLayout.collectionViewLayout.collectionViewContentSize.height)")
+    }
+    
+    private func setupScrollView() {
+        
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackViewContainerView)
+        
+        
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
+        stackViewContainerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        stackViewContainerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        stackViewContainerView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        stackViewContainerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        stackViewContainerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+    }
+    
+    private func setupSubviews() {
+        stackViewContainerView.addArrangedSubview(collectionViewLayout)
+        stackViewContainerView.addArrangedSubview(testView)
     }
     
     private func setupCollectionView() {
         collectionViewLayout = UICollectionView(frame: view.bounds, collectionViewLayout: createLayout())
         collectionViewLayout.translatesAutoresizingMaskIntoConstraints = false
         collectionViewLayout.backgroundColor = .clear
-        view.addSubview(collectionViewLayout)
         collectionViewLayout.register(MallCell.self, forCellWithReuseIdentifier: MallCell.reuseID)
         collectionViewLayout.register(BrandCell.self, forCellWithReuseIdentifier: BrandCell.reuseID)
         collectionViewLayout.register(PagingSectionFooterView.self, forSupplementaryViewOfKind: "FooterMall", withReuseIdentifier: PagingSectionFooterView.footerIdentifier)
         collectionViewLayout.register(HeaderBrandsMallView.self, forSupplementaryViewOfKind: "HeaderBrands", withReuseIdentifier: HeaderBrandsMallView.headerIdentifier)
+        heightCnstrCollectionView = collectionViewLayout.heightAnchor.constraint(equalToConstant: 0)
     }
     
     private func setupConstraints() {
-        NSLayoutConstraint.activate([collectionViewLayout.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor), collectionViewLayout.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor), collectionViewLayout.trailingAnchor.constraint(equalTo: view.trailingAnchor), collectionViewLayout.leadingAnchor.constraint(equalTo: view.leadingAnchor)])
+        NSLayoutConstraint.activate([collectionViewLayout.topAnchor.constraint(equalTo: stackViewContainerView.topAnchor), collectionViewLayout.bottomAnchor.constraint(equalTo: testView.topAnchor), collectionViewLayout.trailingAnchor.constraint(equalTo: stackViewContainerView.trailingAnchor), collectionViewLayout.leadingAnchor.constraint(equalTo: stackViewContainerView.leadingAnchor)])
     }
     
     private func createDataSource() {
@@ -134,23 +192,13 @@ class MallViewController: UIViewController {
             let currentPage = visibleItems.last?.indexPath.row ?? 0
             print("currentPage - \(currentPage)")
             self.delegate?.currentPage(index: currentPage)
-//            guard let itemWidth = visibleItems.last?.bounds.width else { return }
-//            let page = round(offset.x / itemWidth)
-//            let footer = visibleItems.last as! MallCell
-//            footer.pageControl.currentPage = Int(page)
-            // This offset is different from a scrollView. It increases by the item width + the spacing between items.
-            // So we need to divide the offset by the sum of them.
-//            let page = round(offset.x / (itemWidth + section.interGroupSpacing))
-//            self.
-//            self.didChangeCollectionViewPage(to: Int(page))
         }
         
         return section
     }
     
     private func brandsSection() -> NSCollectionLayoutSection {
-       
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(20))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(20) )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.edgeSpacing = NSCollectionLayoutEdgeSpacing(leading: nil, top: NSCollectionLayoutSpacing.fixed(10), trailing: nil, bottom: nil)
 

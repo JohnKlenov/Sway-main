@@ -40,15 +40,39 @@ class BrandCell: UICollectionViewCell {
     }
     
     
-    func setupConstraints() {
-        NSLayoutConstraint.activate([imageView.topAnchor.constraint(equalTo: topAnchor),
-                                     imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-                                     imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-                                     imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1),
-                                     labelName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0),
-                                     labelName.trailingAnchor.constraint(equalTo: trailingAnchor),
-                                     labelName.leadingAnchor.constraint(equalTo: leadingAnchor),
-                                     labelName.bottomAnchor.constraint(equalTo: bottomAnchor)])
+    private func setupConstraints() {
+        
+        let topImageViewCnstr = imageView.topAnchor.constraint(equalTo: topAnchor, constant: 0)
+        topImageViewCnstr.priority = UILayoutPriority(999)
+        topImageViewCnstr.isActive = true
+        
+        let trailingImageViewCnstr = imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0)
+//        trailingImageViewCnstr.priority = UILayoutPriority(1000)
+        trailingImageViewCnstr.isActive = true
+        
+        let leadingImageViewCnstr = imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0)
+//        leadingImageViewCnstr.priority = UILayoutPriority(1000)
+        leadingImageViewCnstr.isActive = true
+        
+        let heightImageViewCnstr = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: 1)
+//        heightImageViewCnstr.priority = UILayoutPriority(1000)
+        heightImageViewCnstr.isActive = true
+        
+        let topStackCnstr = labelName.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 0)
+//        topStackCnstr.priority = UILayoutPriority(1000)
+        topStackCnstr.isActive = true
+        
+        let trailingStackCnstr = labelName.trailingAnchor.constraint(equalTo: trailingAnchor)
+//        trailingStackCnstr.priority = UILayoutPriority(1000)
+        trailingStackCnstr.isActive = true
+        
+        let leadingStackCnstr = labelName.leadingAnchor.constraint(equalTo: leadingAnchor)
+//        leadingStackCnstr.priority = UILayoutPriority(1000)
+        leadingStackCnstr.isActive = true
+        
+        let bottomStackCnstr = labelName.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
+        bottomStackCnstr.priority = UILayoutPriority(999)
+        bottomStackCnstr.isActive = true
     }
     
     func configureCell(model: MImage) {
