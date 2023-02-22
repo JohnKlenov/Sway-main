@@ -17,22 +17,92 @@ class MallViewController: UIViewController {
         return scroll
     }()
     
-    private let stackViewContainerView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.spacing = 0
+    private let containerView: UIView = {
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemBackground
         return view
     }()
     
-    private let testView: UIView = {
+    private let mapView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .orange
-        view.heightAnchor.constraint(equalToConstant: 900).isActive = true
+        view.layer.cornerRadius = 10
         return view
     }()
  
+    let floorPlan: UIButton = {
+        
+        var configuration = UIButton.Configuration.gray()
+       
+        var container = AttributeContainer()
+        container.font = UIFont.boldSystemFont(ofSize: 15)
+        container.foregroundColor = UIColor.white
+        
+        configuration.attributedTitle = AttributedString("Flor plan", attributes: container)
+        configuration.titleAlignment = .center
+        configuration.buttonSize = .large
+        configuration.baseBackgroundColor = .black.withAlphaComponent(0.9)
+
+        var grayButton = UIButton(configuration: configuration)
+        grayButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        grayButton.addTarget(self, action: #selector(floorPlanButtonPressed(_:)), for: .touchUpInside)
+        
+        return grayButton
+    }()
+    
+    let websiteMall: UIButton = {
+        
+        var configuration = UIButton.Configuration.gray()
+       
+        var container = AttributeContainer()
+        container.font = UIFont.boldSystemFont(ofSize: 15)
+        container.foregroundColor = UIColor.white
+        
+        configuration.attributedTitle = AttributedString("Website mall", attributes: container)
+        configuration.titleAlignment = .center
+        configuration.buttonSize = .large
+        configuration.baseBackgroundColor = .black.withAlphaComponent(0.9)
+
+        var grayButton = UIButton(configuration: configuration)
+        grayButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        grayButton.addTarget(self, action: #selector(websiteMallButtonPressed(_:)), for: .touchUpInside)
+        
+        return grayButton
+    }()
+    
+    let titleButtonsStack: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Mall navigator"
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+    
+    let titleMapView: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Location mall"
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 17, weight: .bold)
+        label.textColor = .black
+        return label
+    }()
+    
+    let stackViewForButton: UIStackView = {
+        let stack = UIStackView()
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.axis = .vertical
+        stack.distribution = .fill
+        stack.spacing = 5
+        return stack
+    }()
+    
     private var section: [MallSection]!
     private var collectionViewLayout:UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<MallSection, MImage>!
@@ -44,7 +114,10 @@ class MallViewController: UIViewController {
         section = MallSection.getData()
         setupScrollView()
         setupCollectionView()
+        addButtonsForStackViewButton()
+        
         setupSubviews()
+        setupConstraints()
         createDataSource()
         reloadData()
     }
@@ -63,7 +136,7 @@ class MallViewController: UIViewController {
     private func setupScrollView() {
         
         view.addSubview(scrollView)
-        scrollView.addSubview(stackViewContainerView)
+        scrollView.addSubview(containerView)
         
         
         scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
@@ -71,16 +144,39 @@ class MallViewController: UIViewController {
         scrollView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
-        stackViewContainerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
-        stackViewContainerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
-        stackViewContainerView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
-        stackViewContainerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
-        stackViewContainerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
+        containerView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor).isActive = true
+        containerView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor).isActive = true
+        containerView.topAnchor.constraint(equalTo: scrollView.topAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor).isActive = true
+        containerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor).isActive = true
     }
     
     private func setupSubviews() {
-        stackViewContainerView.addArrangedSubview(collectionViewLayout)
-        stackViewContainerView.addArrangedSubview(testView)
+        containerView.addSubview(collectionViewLayout)
+        containerView.addSubview(titleButtonsStack)
+        containerView.addSubview(stackViewForButton)
+        containerView.addSubview(titleMapView)
+        containerView.addSubview(mapView)
+    }
+    
+    private func setupConstraints() {
+        collectionViewLayout.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 0).isActive = true
+        collectionViewLayout.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0).isActive = true
+        collectionViewLayout.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0).isActive = true
+        collectionViewLayout.bottomAnchor.constraint(equalTo: titleButtonsStack.topAnchor, constant: -20).isActive = true
+        titleButtonsStack.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
+        titleButtonsStack.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
+        titleButtonsStack.bottomAnchor.constraint(equalTo: stackViewForButton.topAnchor, constant: -20).isActive = true
+        stackViewForButton.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20).isActive = true
+        stackViewForButton.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20).isActive = true
+        stackViewForButton.bottomAnchor.constraint(equalTo: titleMapView.topAnchor, constant: -20).isActive = true
+        titleMapView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
+        titleMapView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
+        titleMapView.bottomAnchor.constraint(equalTo: mapView.topAnchor, constant: -20).isActive = true
+        mapView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10).isActive = true
+        mapView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10).isActive = true
+        mapView.heightAnchor.constraint(equalTo: mapView.widthAnchor, multiplier: 1).isActive = true
+        mapView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: 0).isActive = true
     }
     
     private func setupCollectionView() {
@@ -94,8 +190,22 @@ class MallViewController: UIViewController {
         heightCnstrCollectionView = collectionViewLayout.heightAnchor.constraint(equalToConstant: 0)
     }
     
-    private func setupConstraints() {
-        NSLayoutConstraint.activate([collectionViewLayout.topAnchor.constraint(equalTo: stackViewContainerView.topAnchor), collectionViewLayout.bottomAnchor.constraint(equalTo: testView.topAnchor), collectionViewLayout.trailingAnchor.constraint(equalTo: stackViewContainerView.trailingAnchor), collectionViewLayout.leadingAnchor.constraint(equalTo: stackViewContainerView.leadingAnchor)])
+    
+    
+    private func addButtonsForStackViewButton() {
+        
+        let arrayButton = [floorPlan, websiteMall]
+        arrayButton.forEach { view in
+            stackViewForButton.addArrangedSubview(view)
+        }
+    }
+    
+    @objc func floorPlanButtonPressed(_ sender: UIButton) {
+       
+    }
+    
+    @objc func websiteMallButtonPressed(_ sender: UIButton) {
+        
     }
     
     private func createDataSource() {
@@ -173,7 +283,7 @@ class MallViewController: UIViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
 //        absolute(225)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(1/2))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalWidth(0.6))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         
@@ -207,7 +317,7 @@ class MallViewController: UIViewController {
         group.interItemSpacing = .fixed(10)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10)
         
 //        let background = NSCollectionLayoutDecorationItem.background(elementKind: "background")
 //        background.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 5, bottom: 0, trailing: 5)
